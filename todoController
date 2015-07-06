@@ -1,7 +1,4 @@
-var app = angular.module('TaskManager', []);
-
-//controllers
-app.controller('taskController', function($scope) {
+var taskController =  function($scope) {
     $scope.date = new Date();
     $scope.time = new Date();
     $scope.saved = localStorage.getItem('taskItems');
@@ -17,6 +14,7 @@ app.controller('taskController', function($scope) {
     $scope.newTask = null;
     $scope.newTaskDate = null;
     $scope.newTaskTime = null;
+    }
 
     $scope.addNew = function() {
         if ($scope.newTask == null || $scope.newTask == '') {
@@ -29,7 +27,7 @@ app.controller('taskController', function($scope) {
         } else {
             $scope.taskItem.push({
                 description: $scope.newTask,
-                date: $scope.newTaskDate,
+                date: new Date($scope.newTaskDate),
                 time: $scope.newTaskTime,
                 complete: false,
             })
@@ -39,6 +37,13 @@ app.controller('taskController', function($scope) {
         $scope.newTaskTime = '';
         localStorage.setItem('taskItems', JSON.stringify($scope.taskItem));
     };
+
+    $scope.sortTask = function() {
+            var postedDate = new Date($scope.newTaskDate);
+            return postedDate;
+        };
+
+
 
     $scope.deleteTask = function() {
         var completedTask = $scope.taskItem;
@@ -51,11 +56,6 @@ app.controller('taskController', function($scope) {
         localStorage.setItem('taskItems', JSON.stringify($scope.taskItem));
     };
 
-    $scope.deleteEntry = function(index) {
-        $scope.taskItem = (1, index);
-        localStorage.removeItem(index);
-    };
-    
     $scope.save = function() {
         localStorage.setItem('taskItems', JSON.stringify($scope.taskItem));
     }
