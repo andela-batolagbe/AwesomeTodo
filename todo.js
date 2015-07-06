@@ -6,7 +6,7 @@ app.controller('taskController', function($scope) {
     $scope.time = new Date();
     $scope.saved = localStorage.getItem('taskItems');
     $scope.taskItem = (localStorage.getItem('taskItems')!==null) ? 
-    JSON.parse($scope.saved) : [ {description: "Why not add a task?", date: $scope.date, time: $scope.time, complete: false}];
+    JSON.parse($scope.saved) : [ {description: "your awesome todo?", date: $scope.date, time: $scope.time, complete: false}];
     localStorage.setItem('taskItems', JSON.stringify($scope.taskItem));
     
     $scope.newTask = null;
