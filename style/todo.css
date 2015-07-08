@@ -15,7 +15,7 @@ html {
 
 body {
     background: #b1f6cb;
-    background-image: url(new.jpg);
+    background-image: url(todo4.jpg);
     font-family: 'Open Sans', sans-serif;
 }
 /* super basic grid structure */
@@ -50,7 +50,7 @@ body {
 
 h1 {
     font-family: 'Rokkitt', sans-serif;
-    color: #666;
+    color: #f22;
     text-align: center;
     font-weight: 400;
     margin: 0;
@@ -63,24 +63,41 @@ h1 {
     font-size: 11px;
     font-weight: 600;
     text-transform: uppercase;
-    color: #777;
+    color: #288;
 }
 /* inputs */
 
 .inputContainer {
+    float: left;
     height: 60px;
+    width: 300px;
     border-top: 1px solid #e5e5e5;
     position: relative;
     overflow: hidden;
 }
 
-.inputContainer.last {
+.taskName {
+    position: relative;
+    width: 40%;
     border-bottom: 1px solid #e5e5e5;
     margin-bottom: 20px;
 }
 
-.inputContainer.half.last.right {
+.inputContainer.half.last {
+    float: right;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.inputContainer.half.last.left {
+   position: relative;
+    float: left;
     border-left: 1px solid #efefef;
+}
+
+.inputContainer.half.last.right {
+   position: relative;
+    float: right;
+    border-right: 1px solid #efefef;
 }
 
 input[type="date"],
@@ -162,7 +179,7 @@ label {
     font-size: 11px;
     font-weight: 600;
     text-transform: uppercase;
-    color: #777;
+    color: #44b;
     display: block;
     position: absolute;
 }
@@ -187,7 +204,7 @@ button {
 .icon {
     position: absolute;
     top: 30%;
-    left: 10px;
+    left: 5px;
     font-size: 20px;
 }
 
@@ -211,9 +228,9 @@ button {
 /* task styles */
 
 .taskList {
-    list-style: circle;  
-    width:100%; 
-    height:300px; 
+    list-style: circle;
+    width: 600px;
+    height: 300px;
     overflow: auto;
     vertical-align: center;
     padding: 0 20px;
@@ -222,7 +239,7 @@ button {
 .taskItem {
     border-top: 1px solid #e5e5e5;
     padding: 15px 0;
-    color: #564;
+    color: #24f;
     font-weight: 600;
     font-size: 14px;
     letter-spacing: 0.5px;
@@ -233,14 +250,22 @@ button {
 }
 
 .taskCheckbox {
-  outline-color:  #c0392b;
-  color: green; 
-    margin-right: 1em;
+    position: relative;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .complete-true {
-    text-decoration: bolder;
-    color: #4523f1;
+    text-decoration: underline, bold;
+    color: #36f565;
+}
+
+.taskList .priority {
+    margin-left: 41px;
+    color: #ff1011;
+    font-size: 13px;
+    font-weight: bold;
 }
 
 .taskList .taskDate {
@@ -256,9 +281,9 @@ button {
     color: #95a5a6;
     font-size: 12px;
     font-weight: bold;
-    text-transform: lowercase;
+    text-transform: uppercase;
     display: block;
-    margin-left: 50px;
+    margin-left: 41px;
 }
 
 .fa-calendar {
@@ -299,6 +324,28 @@ button {
     outline: none;
 }
 
+.delete-btn {
+    float: right;
+    font-family: 'Open Sans', sans-serif;
+    background-color: #f00;
+    border-radius: 2px;
+    border: 1px;
+    outline: none;
+    height: 20px;
+    width: 60px;
+    font-size: 0.6em;
+    color: #fff;
+    cursor: pointer;
+    text-transform: uppercase;
+    position: relative;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.delete-btn:hover {
+    background: #c0392b;
+}
+
 .taskCheckbox:before,
 .taskCheckbox:checked:before {
     font-family: 'FontAwesome';
@@ -315,4 +362,31 @@ button {
 .taskCheckbox:checked:before {
     content: '\f14a';
     color: #16a085;
+}
+
+.taskPriorities {
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    padding-left: 16.5px;
+    /*specific positioning due to difficult behavior of select element*/
+    
+    background: #fff;
+}
+
+.selectArrow {
+    position: absolute;
+    z-index: 10;
+    top: 35%;
+    right: 0;
+    margin-right: 20px;
+    color: #777;
+    pointer-events: none;
+}
+
+.taskPriorities option {
+    background: #fff;
+    border: none;
+    outline: none;
+    padding: 0 100px;
 }
