@@ -4,64 +4,63 @@
 <head>
     <meta charset="utf-8">
     <title>ToDo Handler</title>
+    <link href="style/bootstrap.css" rel="stylesheet" type="text/css">
     <link href="style/todo.css" rel="stylesheet" type="text/css">
-    <link href="style/jquery-ui.css" rel="stylesheet" type="text/css">
-    <link href="style/font-awesome.css" rel="stylesheet" type="text/css">
-    <link href="style/jquery.timepicker.css" rel="stylesheet" type="text/css">
-    
 </head>
 
 <body>
-    <div ng-app="TaskManager" style="margin-top:150px;">
-        <div class="container">
-            <div class="content" ng-controller="taskController">
-                <h1>ToDo Handler</h1>
-                <p class="tagline">welcome, lets manage your task shedule</p>
-                <form>
-                    <div class="inputContainer">
-                        <input type="text" id="description" class="taskName" placeholder="your awesome todo" ng-model="newTask">
-                        <label for="description">ToDo Title</label>
-                    </div>
-                    <div class="inputContainer half last"> <i class="fa fa-caret-down selectArrow"></i>
-                      <select id="priority" class="taskPriority" ng-model="newTaskPriority" ng-options="obj.name for obj in priorities">
-                      <option class="disabled" value="">Priority</option>
-                      </select>
-                    <label for="priority">Priority</label>
-                    </div>
-                    <div class="inputContainer half last left">
-                        <input type="date" id="dueDate" class="taskDate" ng-model="newTaskDate">
-                        <label for="dueDate">Date</label>
-                    </div>
-                    <div class="inputContainer half last right">
-                        <input type="time" id="dueTime" class="taskTime" ng-model="newTaskTime">
-                        <label for="dueTime">Time</label>
-                    </div>
-                    <div class="row">
-                        <button class="taskAdd" ng-click="addNew()"><i class="fa fa-plus icon"></i>Add task</button>
-                        <button class="taskDelete" ng-click="deleteTask()"><i class="fa fa-trash-o icon"></i>Delete Tasks</button>
-                    </div>
-                </form>
-                <ul class="taskList">
-                    <li class="taskItem" ng-repeat="taskItem in taskItems | orderBy: 'taskItem.priority' ">
-                        <input type="checkbox" class="taskCheckbox" ng-model="taskItem.complete" ng-change="save()">
-                        <span class="complete-{{taskItem.complete}}">{{taskItem.description}} 
-                           <button align = "right" class = "delete-btn" ng-click="deleteEntry($index)">Delete</button>
-                        </span><br>
-                        <strong class="taskDate complete-{{taskItem.complete}}"><i class="fa fa-calendar"></i>{{taskItem.date | date : 'fullDate'}}</strong>
-                        <strong class="taskTime complete-{{taskItem.complete}}"><i class="time"></i>{{taskItem.time | date: 'hh:mma'}}</strong>
-                        <span class="priority priority-{{taskItem.priority}}">{{taskItem.priority}}</span>
-                    </li>
-                </ul>
-                <!-- taskList -->
+    <section ng-app="TaskManager" class="container" ng-controller="taskController">
+        <div class="container-fluid">
+            <h1 class="h1 text-center text-primary">ToDo Handler</h1>
+            <p class="h2 small text-center text-info  ">welcome, lets manage your task shedule</p>
+            <div class="title-box">
+                <label class="label label-info" for="description">ToDo Title</label>
+                <br>
+                <input type="text" id="description" class="left  taskName" placeholder="your awesome todo" ng-model="newTask">
             </div>
-            <!-- content -->
+            <div class="priority-box"> <i class=""></i>
+                <label class="label label-info" for="dropdown-header">Priority</label>
+                <br>
+                <select id="priority" class=" right dropdown-mennu" ng-model="newTaskPriority" ng-options="obj.name for obj in priorities">
+                    <option class="dropdown" value=""></option>
+                </select>
+            </div>
+            <div class="date-box">
+                <label class=" label label-info" for="dueDate">Date</label>
+                <br>
+                <input type="date" id="dueDate" class=" left taskDate" ng-model="newTaskDate">
+            </div>
+            <div class="time-box">
+                <label class="label label-info" for="dueTime">Time</label>
+                <br>
+                <input type="time" id="dueTime" class="right taskTime" ng-model="newTaskTime">
+            </div>
+                <div class="buttons-box">
+            <button class="btn btn-success" class="taskAdd" ng-click="addNew()">
+                </i>Add task</button>
+            <button class="btn btn-danger" class="taskDelete" ng-click="deleteTask()">
+                </i>Delete Tasks</button>
         </div>
-        <!-- container -->
-    </div>
-    <script src='bower_components/angular/angular.min.js'></script>
-          <script src="js/jquery.js"></script>
-          <script src="js/jquery-ui.js"></script>
-       <script src = "js/jquery.timepicker.js" ></script>
+        </div>
+        
+        <div class="list-box jumbotron">
+            <ul>
+                <li class="taskItem" ng-repeat="taskItem in taskItem track by $index" ng-model="taskItem">
+                    <input type="checkbox" class="check" ng-model="taskItem.complete" ng-change="save()">
+                    <span class=" item text-primary complete-{{taskItem.complete}}">{{taskItem.description}}             
+                        <button class = " del btn btn-danger badge" ng-click="deleteEntry($index)">Delete</button>
+                        </span>
+                    <br>
+                    <strong class=" date text-info complete-{{taskItem.complete}}"><i class=" glyphicon glyphicon-calendar"></i>{{taskItem.date | date : 'fullDate'}}</strong>
+                    <br>
+                    <strong class=" date text-info complete-{{taskItem.complete}}"><i class=" glyphicon glyphicon-time"></i>{{taskItem.time | date: 'hh:mma'}}</strong>
+                    <br>
+                    <span class=" priority priority-{{taskItem.priority}}">{{taskItem.priority}}</span>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <script src='bower_components/angular/angular.js'></script>
     <script src="js/todo.js"></script>
     <script src="js/ui-bootstrap-tpls-0.13.0.js"></script>
 </body>

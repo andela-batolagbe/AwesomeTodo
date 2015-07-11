@@ -2,17 +2,17 @@ var app = angular.module('TaskManager', ['ui.bootstrap']);
 
 //controllers
 app.controller('taskController', function($scope) {
-    $scope.date = new Date();
-    $scope.time = new Date();
+    $scope.date = new Date().now;
+    $scope.time = new Date().now;
     $scope.saved = localStorage.getItem('taskItems');
-    $scope.taskItems = (localStorage.getItem('taskItems') !== null) ?
+    $scope.taskItem = (localStorage.getItem('taskItems') !== null) ?
         JSON.parse($scope.saved) : [{
             description: "your awesome todo?",
             date: $scope.date,
             time: $scope.time,
             complete: false
         }];
-    localStorage.setItem('taskItems', JSON.stringify($scope.taskItems));
+    localStorage.setItem('taskItems', JSON.stringify($scope.taskItem));
 
 
     $scope.priorities = [{
@@ -28,51 +28,14 @@ app.controller('taskController', function($scope) {
     $scope.newTaskTime = '';
     $scope.newTaskCategory = $scope.categories;
 
-    $scope.errorText = 'Please enter a ToDo Task';
-    $scope.showErrorText = true;
 
-    $scope.opts = {
-        backdrop: true,
-        keyboard: true,
-        backdropClick: true,
-        templateUrl: '../alert.html',
-        controller: 'TestDialogController',
-        resolve: {}
-    };
-
-    $scope.errorAlert = function() {
-        $scope.opts.resolve.errorText = function() {
-            return angular.copy($scope.successText);
-        }
-
-        $scope.opts.resolve.showErrorText = function() {
-            return angular.copy($scope.showErrorText);
-        }
-
-        var confirm = $dialog.dialog($scope.opts);
-        confirm.open().then(function(result) {
-            if (result) {
-                return true
-            } else {
-                return false
-            }
-        });
-    }
-
-function TestDialogController($scope, dialog, errorText, showErrorText){
- 
-   $scope.errorText = errorText;  
-   $scope.showErrorAlert = showErrorAlert;
- 
-  $scope.close = function(result){
-    dialog.close(result);
-  };
-}
+    $scope.errorText = 'Please Enter a ToDO!'
+    
     $scope.addNew = function() {
         if ($scope.newTask == null || $scope.newTask == '') {
-            $scope.errorAlert();
+             alert($scope.errorText);
         } else {
-            $scope.taskItems.push({
+            $scope.taskItem.push({
                 description: $scope.newTask,
                 date: $scope.newTaskDate,
                 time: $scope.newTaskTime,
@@ -84,26 +47,27 @@ function TestDialogController($scope, dialog, errorText, showErrorText){
         $scope.newTaskDate = '';
         $scope.newTaskTime = '';
         $scope.newTaskCategory = $scope.categories;
-        localStorage.setItem('taskItems', JSON.stringify($scope.taskItems));
+        localStorage.setItem('taskItems', JSON.stringify($scope.taskItem));
     };
 
+
     $scope.deleteTask = function() {
-        var completedTask = $scope.taskItems;
-        $scope.taskItems = [];
+        var completedTask = $scope.taskItem;
+        $scope.taskItem = [];
         angular.forEach(completedTask, function(taskItem) {
             if (!taskItem.complete) {
-                $scope.taskItems.push(taskItem);
+                $scope.taskItem.push(taskItem);
             }
         });
         localStorage.setItem('taskItems', JSON.stringify($scope.taskItems));
     };
 
     $scope.deleteEntry = function(index) {
-        $scope.taskItems.splice(index, 1);
-        localStorage.setItem('taskItems', JSON.stringify($scope.taskItems));
+        $scope.taskItem.splice(index, 1);
+        localStorage.setItem('taskItems', JSON.stringify($scope.taskItem));
     };
 
     $scope.save = function() {
-        localStorage.setItem('taskItems', JSON.stringify($scope.taskItems));
+        localStorage.setItem('taskItems', JSON.stringify($scope.taskItem));
     }
 });
